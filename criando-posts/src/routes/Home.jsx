@@ -18,7 +18,7 @@ const Home = () => {
 
       const data = response.data;
 
-      console.log(data);
+      setPosts(data);
     } catch (error) {
       console.log(error);
     }
@@ -33,8 +33,19 @@ const Home = () => {
 
   }, [])
   return (
-    <div>Home</div>
-  )
-}
+    <div className="home">
+      <h1>Últimos posts</h1>
+      {posts.length === 0 ? <p>Carregando...</p> : (
+        posts.map((post) => (
+          <div className = "post" key={post.id}>
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
+              <Link to={`posts/${post.id}`} className="btn">Ler mais</Link>
+          </div>
+        ))
+      )}
+    </div>
+  );
+};
 
 export default Home
